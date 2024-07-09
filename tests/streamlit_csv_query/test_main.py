@@ -7,9 +7,13 @@ def get_app_path() -> str:
     return os.path.join(test_directory, "src", "streamlit_csv_query", "main.py")
 
 
-def test_echo_works():
+def test_happy_path():
     app = AppTest.from_file(get_app_path()).run()
-    input = app.text_input("text")
-    input.set_value("hello").run()
 
-    assert app.text[0].value == "You entered: hello"
+    selectbox = app.selectbox(key="csv")
+    assert selectbox.value == "USA City Populations (2024)"
+
+    schema = app.table[0]
+
+    assert schema.value.shape == (8, 2)
+    assert schema.value.columns.tolist() == ["Column Name", "Data Type"]

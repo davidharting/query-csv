@@ -1,5 +1,4 @@
 import streamlit as st
-import tempfile
 import duckdb
 from pathlib import Path
 from typing import List
@@ -17,6 +16,7 @@ def main():
     csv_selection = st.selectbox(
         label="",
         options=["USA City Populations (2024)", "Upload my own"],
+        key="csv",
     )
 
     relation = None
